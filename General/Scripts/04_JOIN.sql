@@ -1,6 +1,7 @@
+
 /* 
 [JOIN 용어 정리]
-  오라클       	  	                                SQL : 1999표준(ANSI)
+  오라클       	  	                          SQL : 1999표준(ANSI)
 ----------------------------------------------------------------------------------------------------------------
 등가 조인		                            내부 조인(INNER JOIN), JOIN USING / ON
                                             + 자연 조인(NATURAL JOIN, 등가 조인 방법 중 하나)
@@ -41,19 +42,19 @@ SELECT EMP_ID, EMP_NAME, DEPT_CODE
 FROM EMPLOYEE;
 -- 직원번호, 직원면, 부서코드는 EMPLOYEE테이블에 조회가능
 
--- 부서명은은 DEPARTMENT테이블에서 조회 가능
+-- 부서명은은 DEPARTMENT 테이블에서 조회 가능
 SELECT DEPT_ID, DEPT_TITLE
 FROM DEPARTMENT;
 
-SELECT 
+SELECT	
 	EMP_ID, EMP_NAME, DEPT_CODE, DEPT_TITLE
 FROM 
 	EMPLOYEE
-JOIN
+JOIN	
 	DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 
 
-	
+
 /*  JOIN은 단순히 테이블을 두개를 붙이는 것이 아닌
  *  
  *  기준 삼은 테이블의 한 컬럼을 지정해
@@ -66,10 +67,8 @@ JOIN
 
 -- 1. 내부 조인(INNER JOIN) ( == 등가 조인(EQUAL JOIN))
 --> 연결되는 컬럼의 값이 일치하는 행들만 조인됨.  
-
-
-
 -- (== 일치하는 값이 없는 행은 조인에서 제외됨. )
+
 
 -- 작성 방법 크게 ANSI구문과 오라클 구문 으로 나뉘고 
 -- ANSI에서  USING과 ON을 쓰는 방법으로 나뉜다.
@@ -80,23 +79,22 @@ JOIN
 -- ANSI에서 제정된 표준을 ANSI라고 하고 
 -- 여기서 제정한 표준 중 가장 유명한 것이 ASCII코드이다.
 
+
 -- *오라클 전용 구문
 -- FROM절에 쉼표(,) 로 구분하여 합치게 될 테이블명을 기술하고
 -- WHERE절에 합치기에 사용할 컬럼명을 명시한다
+
 
 -- 1) 연결에 사용할 두 컬럼명이 다른 경우
 
 -- EMPLOYEE 테이블, DEPARTMENT 테이블을 참조하여
 -- 사번, 이름, 부서코드, 부서명 조회
-SELECT
+SELECT 
 	EMP_ID, EMP_NAME, DEPT_ID, DEPT_TITLE
 FROM 
 	DEPARTMENT
-JOIN	
+JOIN
 	EMPLOYEE ON (DEPT_ID = DEPT_CODE);
-
-
-
 
 
 -- EMPLOYEE 테이블에 DEPT_CODE컬럼과 DEPARTMENT 테이블에 DEPT_ID 컬럼은 
@@ -109,11 +107,11 @@ SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_ID, DEPT_TITLE
 FROM EMPLOYEE
 JOIN DEPARTMENT ON(DEPT_CODE = DEPT_ID);
 
-
 -- 오라클 (JOIN이라는 단어를 작성하지 않음)
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_ID, DEPT_TITLE
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE = DEPT_ID;
+
 
 -- DEPARTMENT 테이블, LOCATION 테이블을 참조하여
 -- 부서명, 지역명 조회
@@ -129,17 +127,15 @@ FROM
 JOIN
 	LOCATION ON (LOCATION_ID = LOCAL_CODE);
 
-
-
-
 -- 오라클 방식
-SELECT 
+SELECT
 	DEPT_TITLE, LOCAL_NAME,
 	LOCATION_ID, LOCAL_CODE
 FROM
 	DEPARTMENT, LOCATION
 WHERE
 	LOCATION_ID = LOCAL_CODE;
+
 
 
 -- 2) 연결에 사용할 두 컬럼명이 같은 경우
@@ -152,29 +148,28 @@ WHERE
 SELECT * FROM EMPLOYEE;
 SELECT * FROM JOB;
 
-SELECT 
-	*
-FROM 
-	EMPLOYEE 
-JOIN
-	JOB ON (JOB_CODE = JOB_CODE);
---ORA-00918: 열의 정의가 애매합니다
+SELECT 	*
+FROM EMPLOYEE
+JOIN JOB ON (JOB_CODE = JOB_CODE);
+-- ORA-00918: 열의 정의가 애매합니다
 --> 컬럼명이 겹칠 경우 발생하는 오류
 
-/*오류 해결 방법 1 : 어떤 테이블의 컬럼인지 구분하기*/
+/* 오류 해결 방법 1 : 어떤 테이블의 컬럼인지 구분하기*/
 SELECT 	*
-FROM 	EMPLOYEE 
-JOIN	JOB ON (EMPLOYEE.JOB_CODE = JOB.JOB_CODE);
+FROM EMPLOYEE
+JOIN JOB ON (EMPLOYEE.JOB_CODE = JOB.JOB_CODE);
 --> 조회 결과에 JOB_CODE 컬럼이 2개(각각의 테이블 컬럼)
 
-/* 오류 해결 방법 2 : JOIN USING() 구분 사용하기 
- * JOIN에 사용되는 컬럼명이 같을 경우 USING 사용 가능
- * */
+
+/* 오류 해결 방법 2 : JOIN USING() 구분 사용하기
+ * - JOIN에 사용되는 컬럼명이 같을 경우 USING 사용 가능
+ *  */
 SELECT 	*
-FROM 	EMPLOYEE 
-JOIN	JOB USING (JOB_CODE);
+FROM EMPLOYEE
+JOIN JOB USING (JOB_CODE);
 --> USING 이용해서 JOIN을하면 
--- JOIN에 사용된 컬럼이 하나로 합쳐진다!!
+--  JOIN에 사용된 컬럼이 하나로 합쳐진다!!
+
 
 
 
@@ -186,27 +181,25 @@ FROM EMPLOYEE T1, JOB T2
 WHERE T1.JOB_CODE = T2.JOB_CODE;
 
 
+
 SELECT * FROM EMPLOYEE;
 --> DEPT_CODE 값이 NULL인 행이 존재(2행)
 
-SELECT * FROM EMPLOYEE;
+SELECT * FROM DEPARTMENT ;
 --> DEPT_ID 값이 NULL인 행이 없다(0행)
 
-/* INNER JOIN :
+/* INNER JOIN : 
  * JOIN에 사용된 컬럼 값이 일치하는 행들 끼리 연결
- * --> 일치하지 않은 행은 연결 x -> 결과 포함 x 
+ *  --> 일치하지 않은 행은 연결 x -> 결과 포함 x
  * */
 
-SELECT *
-FROM EMPLOYEE 
+SELECT * 
+FROM EMPLOYEE
 JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 -- 21행 조회
 -- 왜? 23행이 아니라 21행??
--- EMPLOYEE DEPT_CODE 값이 NULL인행 2개 있지만
+-- EMPLOYEE의 DEPT_CODE 값이 NULL인 행 2개 있지만
 -- DEPARTMENT의 DEPT_ID는 NULL이 행이 없기 때문에 연결 x
-
-
-
 
 
 
@@ -230,18 +223,26 @@ FROM EMPLOYEE
 -- 컬럼 수를 기준으로 JOIN
 -- ANSI 표준
 SELECT
-	EMP_NAME, DEPT_CODE, DEPT_ID, 
-	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE 
+	EMP_NAME, 
+	DEPT_CODE, 
+	DEPT_ID, 
+	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE
 FROM
-	EMPLOYEE, DEPARTMENT 
-WHERE 
-	DEPT_CODE = DEPT_ID(+);
+	EMPLOYEE 
+LEFT OUTER JOIN 
+	DEPARTMENT  ON (DEPT_ID = DEPT_CODE);
 
-	
-	
 
 -- 오라클 구문
-
+SELECT
+	EMP_NAME, 
+	DEPT_CODE, 
+	DEPT_ID, 
+	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE
+FROM
+	EMPLOYEE, DEPARTMENT 
+WHERE
+	DEPT_CODE = DEPT_ID(+);
 
 
 -- 2) RIGHT [OUTER] JOIN : 합치기에 사용한 두 테이블 중 
@@ -251,12 +252,12 @@ SELECT
 	EMP_NAME, 
 	DEPT_CODE, 
 	DEPT_ID, 
-	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE 
+	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE
 FROM
-	EMPLOYEE
-RIGHT OUTER JOIN
-	DEPARTMENT ON (DEPT_ID = DEPT_CODE)
-ORDER BY
+	EMPLOYEE 
+RIGHT OUTER JOIN 	
+	DEPARTMENT  ON (DEPT_ID = DEPT_CODE)
+ORDER BY 
 	DEPT_CODE ASC NULLS FIRST;
 
 
@@ -265,13 +266,14 @@ SELECT
 	EMP_NAME, 
 	DEPT_CODE, 
 	DEPT_ID, 
-	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE 
+	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE
 FROM
 	EMPLOYEE, DEPARTMENT 
-WHERE
+WHERE 
 	DEPT_CODE(+) = DEPT_ID
-ORDER BY
+ORDER BY 
 	DEPT_CODE ASC NULLS FIRST;
+
 
 -- 3) FULL [OUTER] JOIN   : 합치기에 사용한 두 테이블이 가진 모든 행을 결과에 포함
 -- ** 오라클 구문은 FULL OUTER JOIN을 사용 못함
@@ -281,33 +283,34 @@ SELECT
 	EMP_NAME, 
 	DEPT_CODE, 
 	DEPT_ID, 
-	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE 
+	NVL(DEPT_TITLE, '부서없음') AS DEPT_TITLE
 FROM
-	EMPLOYEE
-FULL OUTER JOIN
-	DEPARTMENT ON (DEPT_ID = DEPT_CODE)
-ORDER BY
+	EMPLOYEE 
+FULL OUTER JOIN 	
+	DEPARTMENT  ON (DEPT_ID = DEPT_CODE)
+ORDER BY 
 	DEPT_CODE ASC NULLS FIRST;
-
 
 
 
 ---------------------------------------------------------------------------------------------------------------
 
 -- 3. 교차 조인(CROSS JOIN == CARTESIAN PRODUCT)
---  조인되는 테이블의 각 행들이 모두 매핑된 데이터가 검색되는 방법(곱집합)
+-- 조인되는 테이블의 각 행들이 모두 매핑된 데이터가 검색되는 방법(곱집합)
 
+-- ANSI 방식
 SELECT EMP_NAME, DEPT_CODE, DEPT_TITLE
-FROM EMPLOYEE 
-CROSS JOIN DEPARTMENT 
+FROM EMPLOYEE
+CROSS JOIN DEPARTMENT
 ORDER BY EMP_NAME, DEPT_CODE;
 
-
--- 오라클 방식 
+-- 오라클 방식
 SELECT EMP_NAME, DEPT_CODE, DEPT_TITLE
-FROM EMPLOYEE, DEPARTMENT 
+FROM EMPLOYEE, DEPARTMENT
 ORDER BY EMP_NAME, DEPT_CODE;
 
+--> NATURAL JOIN(자연 조인)의
+-- 실패 결과로 나타나는 모습으로 기억하자!!!
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -409,4 +412,3 @@ ORDER BY EMP_NAME, DEPT_CODE;
 
 -- 9. 보너스포인트가 없는 직원들 중에서 직급코드가 J4와 J7인 직원들의 사원명, 직급명, 급여를 조회하시오.
 -- 단, JOIN, IN 사용할 것
-
