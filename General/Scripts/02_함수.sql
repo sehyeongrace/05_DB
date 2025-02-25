@@ -1,4 +1,3 @@
-
 /*
  * 함수 : 컬럼값 | 지정된 값을 읽어 연산한 결과를 반환하는 것
  * 
@@ -448,7 +447,7 @@ FROM DUAL;
 
 /* NULL : 값이 없음 (빈 칸)
  * 
- * NULL 처리 연산 : IS NULL, iS NOT NULL 
+ * NULL 처리 연산 : IS NULL, IS NOT NULL 
  * 
  * 
  * **NULL 처리 함수**
