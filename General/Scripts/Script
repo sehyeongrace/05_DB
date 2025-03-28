@@ -1,0 +1,7 @@
+
+-- 아이디, 비밀번호, 이름, 이메일, 가입일
+CREATE TABLE KH_MEMBER(
+	MEMBER_ID VARCHAR2(10) PRIMARY KEY
+
+
+);
